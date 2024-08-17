@@ -1,0 +1,373 @@
+Ask for the Home Page
+Step 1
+
+Predicted Request components:
+
+Method: GET
+URL: /
+Headers: none
+Body: none
+
+Predicted Response components:
+
+Status Code: 200
+Headers:
+Content-Type: text/html
+Body: HTML page with navigation links to other pages
+
+
+Ask for a page that doesn't exist
+
+Request components:
+
+Method: GET
+URL: /stuff
+Headers: na
+Body: na
+
+Response components:
+
+Status code: 404
+Headers: text/html
+Body: 404 - Page Not Found
+plus sitemap
+
+
+Ask for the products list page
+
+Request components:
+
+Method: GET
+URL: /products
+Headers: na
+Body: na
+
+Response components:
+
+Status code: 200
+Headers: text/html
+Body: Products List
+Facial Cleansing Brush
+
+
+Ask for the product detail page
+Here's an example product on the server:
+
+detail	value
+productId	1
+name	"Facial Cleansing Brush"
+description	"Reaches deep pores to cleanse oil, dirt, and blackheads."
+price	23.99
+categories	"beauty", "electronics"
+
+Request components:
+
+Method: GET
+URL: /products/1
+Headers: na
+Body: na
+Facial Cleansing Brush
+Reaches deep pores to cleanse oil, dirt, and blackheads.
+$23.99
+Edit Product
+Delete Product
+Categories
+Beauty
+Electronics
+Post a Review
+Comment
+Star Rating
+Submit
+Reviews
+I love this product!
+5
+Edit Review
+Delete Review
+
+Response components:
+
+Status code: 200
+Headers: text/html
+Body: na
+
+
+Ask for the create new product page
+
+Request components:
+
+Method: GET
+URL: /products/new
+Headers: na
+Body: na
+
+Response components:
+
+Status code: 200
+Headers: text/html
+Body:
+Create a Product
+Name
+Description
+Price
+CategoriesGroceryElectronicsBeautyToys and GamesHealthFurnitureClothingSubmit
+
+
+Submit a new product
+Remember, for a traditional HTML web server, whenever a successful POST request is sent to the server, the server should respond with a redirection to a page.
+
+After successful submission, user should be looking at the product detail page.
+
+Here are the categories on the server:
+
+tag	name
+grocery	Grocery
+electronics	Electronics
+beauty	Beauty
+toys-games	Toys and Games
+health	Health
+furniture	Furniture
+clothing	Clothing
+Note: In Chome dev tools, if the "body" of a request exists, it will appear in the network tab as "payload".
+
+Request components:
+
+Method: POST
+URL: /products
+Headers:
+Body:
+
+example new product body JSON {put in object}:
+
+{"name": "Space Gun",
+"description": "this is a death ray laser",
+"price": 1000000,
+"categories": ["electronics"]}
+
+JSON parsing not in server code, used key value pairs without quotes or [], x-www-form-encoded
+
+name:Space Gun 3
+description:Zap your enemies faster!
+price:3000000
+categories:electronics
+
+Response components:
+
+Status code: 302
+Headers: text/plain
+Body: Found. Redirecting to /products/7
+
+
+Ask for the edit product page
+
+Request components:
+
+Method: GET
+URL: /products/:productID/edit
+Headers: na
+Body: na
+
+Response components:
+
+Status code: 200
+Headers: text/html
+Body:
+Edit Product
+Name
+Facial Cleansing Brush
+Description
+Reaches deep pores to cleanse oil, dirt, and blackheads.
+Price
+23.99
+CategoriesGroceryElectronicsBeautyToys and GamesHealthFurnitureClothingSubmit
+
+
+Submit an edit for an existing product
+After successful submission, user should be looking at the product detail page.
+
+Request components:
+
+Method: POST
+URL: /products/:productID
+Headers: application/x-www-form-urlencoded
+Body:
+
+Response components:
+
+Status code: 302
+Headers: text/html
+Body: Found. Redirecting to /products/3
+Found. Redirecting to /products/2
+
+Space Gun 2
+even deathyier
+$2000000.00
+Edit Product
+Delete Product
+Categories
+Electronics
+Post a Review
+Comment
+Star Rating
+Submit
+Reviews
+There are no reviews for this product
+
+
+Submit a delete for an existing product
+After successful submission, user should be looking at the products list page.
+
+Request components:
+
+Method: POST
+URL: /products/:productID/delete
+Headers: application/x-www-form-urlencoded / na ?
+Body: na
+
+Response components:
+
+Status code: 302 (redirect)
+Headers: text/plain
+Body: Found. Redirecting to /products
+
+
+Submit a new review for a product
+After successful submission, user should be looking at the product detail page.
+
+Here's an example review on the server:
+
+detail	value
+reviewId	1
+comment	"I love this product!"
+starRating	5
+productId	1
+
+Request components:
+
+Method: POST
+URL: /products/:productID/reviews
+Headers: application/x-www-form-urlencoded
+Body:
+reviewId: 1
+comment:This space gun zaps super good :)
+starRating:4
+productId:2
+
+Response components:
+
+Status code: 302
+Headers: text/plain
+Body: Found. Redirecting to /products/2
+
+
+Ask for the edit review page for a product
+
+Request components:
+
+Method: GET
+URL: /reviews/:reviewID/edit
+Headers: na
+Body: na
+
+Response components:
+
+Status code: 200
+Headers: text/html
+Body:
+Edit Review for Facial Cleansing Brush
+Comment
+I love this product!
+Star Rating
+5
+Submit
+
+
+Submit an edit for an existing review
+After successful submission, user should be looking at the product detail page.
+
+Request components:
+
+Method: POST
+URL: /reviews/:reviewID
+Headers: application/x-www-form-urlencoded
+Body:
+reviewId: 1
+comment:This space gun zaps super good :)
+starRating:4
+productId:2
+
+Response components:
+
+Status code: 302
+Headers: text/html
+Body: Found. Redirecting to /products/1
+
+
+Submit a delete for an existing review
+After successful submission, user should be looking at the product detail page.
+
+Request components:
+
+Method: POST
+URL: /reviews/:reviewID/delete
+Headers: na`
+Body: na
+
+Response components:
+
+Status code: 302
+Headers: text/plain
+Body: Found. Redirecting to /products/1
+Found. Redirecting to /products/2
+
+
+Ask for all the products in a particular category by tag of the category
+
+Request components:
+
+Method: GET
+URL: /categories/:categoryTag/products
+Headers: na
+Body: na
+
+Response components:
+
+Status code: 200
+Headers: text/html
+Body:
+Electronics Products List
+Facial Cleansing Brush
+Space Gun 3
+
+
+Ask for the best-selling product
+Look for clues in the HTML pages from the prior responses for what the route should be.
+
+Request components:
+
+Method: GET
+URL: /products/best-selling
+Headers: na
+Body: na
+
+Response components:
+
+Status code: 200
+Headers: text/html
+Body:
+Best-Selling Product: Facial Cleansing Brush
+Reaches deep pores to cleanse oil, dirt, and blackheads.
+$23.99
+Edit Product
+Delete Product
+Categories
+Beauty
+Electronics
+Post a Review
+Comment
+Star Rating
+Submit
+Reviews
+I love this product!
+5
+Edit Review
+Delete Review
